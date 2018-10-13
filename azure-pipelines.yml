@@ -3,7 +3,7 @@
 
 jobs:
 
--job: Build
+- job: Build
   pool:
     vmImage: 'Ubuntu 16.04'
     
@@ -18,7 +18,7 @@ jobs:
   
   - task: PublishBuildArtifacts@1
 
--job: Test
+- job: Test
   
   pool:
     vmImage: 'Ubuntu 16.04'
