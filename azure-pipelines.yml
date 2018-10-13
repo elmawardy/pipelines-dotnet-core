@@ -14,7 +14,7 @@ steps:
     dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
 
 - task: PublishTestResults@2
-  continueOnError: 'false'
+  errorActionPreference: stop
   inputs:
     testRunner: VSTest
     testResultsFiles: '**/*.trx'
