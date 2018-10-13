@@ -29,4 +29,3 @@ jobs:
   steps:
   - script: |
       dotnet build --configuration $(buildConfiguration)
-      dotnet test dotnetcore-tests.dll
