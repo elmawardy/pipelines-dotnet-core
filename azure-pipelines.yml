@@ -24,3 +24,5 @@ jobs:
     vmImage: 'Ubuntu 16.04'
   steps:
   - script: dotnet test dotnetcore-tests.dll
+  
+  - task: PublishBuildArtifacts@1
