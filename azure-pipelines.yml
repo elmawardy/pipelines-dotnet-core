@@ -27,5 +27,6 @@ jobs:
     buildConfiguration: 'Release'
 
   steps:
-  - script: dotnet build --configuration $(buildConfiguration)
-  - script: dotnet test dotnetcore-tests.dll
+  - script: |
+    dotnet build --configuration $(buildConfiguration)
+    dotnet test dotnetcore-tests.dll
