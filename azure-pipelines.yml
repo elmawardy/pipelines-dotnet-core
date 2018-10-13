@@ -22,8 +22,5 @@ jobs:
   
   pool:
     vmImage: 'Ubuntu 16.04'
-  variables:
-    buildConfiguration: 'Release'
   steps:
   - script: dotnet test dotnetcore-tests.dll
-      
