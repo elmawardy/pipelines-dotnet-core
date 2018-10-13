@@ -22,7 +22,10 @@ jobs:
   
   pool:
     vmImage: 'Ubuntu 16.04'
-  steps:
-  - script: dotnet test dotnetcore-tests.dll
   
-  - task: PublishBuildArtifacts@1
+  variables:
+    buildConfiguration: 'Release'
+
+  steps:
+  - script: dotnet build --configuration $(buildConfiguration)
+  - script: dotnet test dotnetcore-tests.dll
