@@ -29,4 +29,4 @@ jobs:
   steps:
   - script: |
       dotnet build --configuration $(buildConfiguration)
-      dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
+      dotnet test dotnetcore-tests --configuration $(buildConfiguration)
