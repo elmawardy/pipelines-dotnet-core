@@ -12,5 +12,10 @@
       dotnet build --configuration $(buildConfiguration)
       dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
   - script : dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
+
+  - task: PublishTestResults@2
+    inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
   
   - task: PublishBuildArtifacts@1
