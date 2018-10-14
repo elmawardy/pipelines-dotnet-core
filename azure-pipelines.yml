@@ -12,7 +12,9 @@ jobs:
      buildConfiguration: Release
 
     steps:
-    - script: dotnet build --configuration $(buildConfiguration)
+    - script: |
+       dotnet build --configuration $(buildConfiguration)
+       dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
 
   - job: Test
 
@@ -41,5 +43,4 @@ jobs:
      buildConfiguration: Release
 
     steps:
-    - script: dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
     - task: PublishBuildArtifacts@1
