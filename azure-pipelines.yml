@@ -28,6 +28,7 @@ jobs:
 
     steps: 
     - script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
+      continueOnError: boolean
     - task: PublishTestResults@2
       inputs:
        testRunner: VSTest
