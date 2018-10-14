@@ -27,6 +27,9 @@ jobs:
      buildConfiguration: Release
 
     steps: 
+    - script: |
+       dotnet build --configuration $(buildConfiguration)
+       dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
     - task: PublishTestResults@2
       inputs:
        testRunner: VSTest
@@ -43,4 +46,7 @@ jobs:
      buildConfiguration: Release
 
     steps:
+    - script: |
+       dotnet build --configuration $(buildConfiguration)
+       dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
     - task: PublishBuildArtifacts@1
