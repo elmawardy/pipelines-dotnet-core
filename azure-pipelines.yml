@@ -23,7 +23,7 @@ jobs:
     steps: 
     - script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
 
-  - job: Display Test
+  - job: Display_Test
 
     dependsOn: Build
     condition: succeeded()
