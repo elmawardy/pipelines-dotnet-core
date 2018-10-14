@@ -1,22 +1,46 @@
 # Build ASP.NET Core project using Azure Pipelines
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core?view=vsts
 
-pool:
-  vmImage: 'Ubuntu 16.04'
 
-variables:
-  buildConfiguration: 'Release'
+jobs: 
 
-steps:
-- script: |
-    dotnet build --configuration $(buildConfiguration)
-    dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
-    dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
+  - job: Build
 
-- task: PublishTestResults@2
-  inputs:
-    testRunner: VSTest
-    testResultsFiles: '**/*.trx'
-    failOnStandardError: 'true'
+    pool:
+     vmImage: Ubuntu 16.04
+    variables:
+     buildConfiguration: Release
 
-- task: PublishBuildArtifacts@1
+    steps:
+    - script: |
+       dotnet build --configuration $(buildConfiguration)
+       dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
+
+  - job: Test
+
+    dependsOn: Build
+    condition: succeeded()
+
+    pool:
+     vmImage: Ubuntu 16.04
+    variables:
+     buildConfiguration: Release
+
+    steps: 
+    - task: PublishTestResults@2
+      inputs:
+       testRunner: VSTest
+       testResultsFiles: '**/*.trx'
+
+  - job: Publish
+
+    dependsOn: Test
+    condition: succeeded()
+
+    pool:
+     vmImage: Ubuntu 16.04
+    variables:
+     buildConfiguration: Release
+
+    steps:
+    - task: PublishBuildArtifacts@1
