@@ -39,14 +39,14 @@ jobs:
 
     steps: 
     - script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
+      continueOnError: 'true'
     - task: PublishTestResults@2
       inputs:
        testRunner: VSTest
        testResultsFiles: '**/*.trx'
-       searchFolder: $(System.DefaultWorkingDirectory)
     
 
-  - job: Publish
+  - job: PublishBuildArtifacts
 
     dependsOn: Test
     condition: succeeded()
