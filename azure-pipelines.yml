@@ -17,7 +17,7 @@ jobs:
   - job: Test
 
     dependsOn: Build
-    condition: succeed()
+    condition: succeeded()
 
     pool:
      vmImage: Ubuntu 16.04
@@ -34,7 +34,7 @@ jobs:
   - job: Publish
 
     dependsOn: Test
-    condition: succeed()
+    condition: succeeded()
 
     pool:
      vmImage: Ubuntu 16.04
