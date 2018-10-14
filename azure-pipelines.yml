@@ -25,7 +25,6 @@ jobs:
      buildConfiguration: Release
 
     steps: 
-    - script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
     - task: PublishTestResults@2
       inputs:
        testRunner: VSTest
