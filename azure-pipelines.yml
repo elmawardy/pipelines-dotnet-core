@@ -27,10 +27,7 @@ jobs:
      buildConfiguration: Release
 
     steps: 
-    - script: |
-       dotnet build --configuration $(buildConfiguration)
-       dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
-       dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
+    - script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
     - task: PublishTestResults@2
       inputs:
        testRunner: VSTest
