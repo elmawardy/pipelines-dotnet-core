@@ -7,15 +7,21 @@ pool:
 variables:
   buildConfiguration: Release
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-- script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
-  continueOnError: true
-- script: dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
+Jobs: 
 
-- task: PublishTestResults@2
-  inputs:
-    testRunner: VSTest
-    testResultsFiles: '**/*.trx'
+  - Job: Build
+    steps:
+    - script: dotnet build --configuration $(buildConfiguration)
 
-- task: PublishBuildArtifacts@1
+  - Job: Test
+    steps: 
+    - script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
+    - task: PublishTestResults@2
+    inputs:
+     testRunner: VSTest
+     testResultsFiles: '**/*.trx'
+
+  - Job: Publish
+    steps:
+    - script: dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
+    - task: PublishBuildArtifacts@1
