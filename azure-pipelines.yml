@@ -2,9 +2,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core?view=vsts
 
 
-Jobs: 
+jobs: 
 
-  - Job: Build
+  - job: Build
 
     pool:
      vmImage: Ubuntu 16.04
@@ -14,7 +14,7 @@ Jobs:
     steps:
     - script: dotnet build --configuration $(buildConfiguration)
 
-  - Job: Test
+  - job: Test
 
     pool:
      vmImage: Ubuntu 16.04
@@ -28,7 +28,7 @@ Jobs:
        testRunner: VSTest
        testResultsFiles: '**/*.trx'
 
-  - Job: Publish
+  - job: Publish
 
     pool:
      vmImage: Ubuntu 16.04
