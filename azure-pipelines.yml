@@ -12,9 +12,7 @@ jobs:
      buildConfiguration: Release
 
     steps:
-    - script: |
-       dotnet build --configuration $(buildConfiguration)
-       dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
+    - script: dotnet build --configuration $(buildConfiguration)
 
   - job: Test
 
@@ -29,11 +27,13 @@ jobs:
     steps: 
     - script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
       continueOnError: 'true'
+    - script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
+      continueOnError: 'true'
     - task: PublishTestResults@2
       inputs:
        testRunner: VSTest
        testResultsFiles: '**/*.trx'
-       failOnStandardError: 'true'
+    
 
   - job: Publish
 
@@ -46,7 +46,5 @@ jobs:
      buildConfiguration: Release
 
     steps:
-    - script: |
-       dotnet build --configuration $(buildConfiguration)
-       dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
+    - script: dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
     - task: PublishBuildArtifacts@1
