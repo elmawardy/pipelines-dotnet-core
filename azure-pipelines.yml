@@ -15,15 +15,6 @@ jobs:
     - script: dotnet build --configuration $(buildConfiguration)
 
   - job: Test
-    pool:
-     vmImage: Ubuntu 16.04
-    variables:
-     buildConfiguration: Release
-
-    steps: 
-    - script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
-
-  - job: PublishTestResults
 
     dependsOn: Build
     condition: succeeded()
@@ -34,10 +25,25 @@ jobs:
      buildConfiguration: Release
 
     steps: 
+    - script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
+
+  - job: PublishTestResults
+
+    dependsOn: Test
+    condition: always()
+
+    pool:
+     vmImage: Ubuntu 16.04
+    variables:
+     buildConfiguration: Release
+
+    steps: 
+    - script: dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
     - task: PublishTestResults@2
       inputs:
        testRunner: VSTest
        testResultsFiles: '**/*.trx'
+       searchFolder: $(System.DefaultWorkingDirectory)
     
 
   - job: Publish
