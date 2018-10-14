@@ -15,7 +15,7 @@
 
   - task: PublishTestResults@2
     inputs:
-    testRunner: VSTest
-    testResultsFiles: '**/*.trx'
+     testRunner: VSTest
+     testResultsFiles: '**/*.trx'
   
   - task: PublishBuildArtifacts@1
