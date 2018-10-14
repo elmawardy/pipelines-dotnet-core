@@ -16,6 +16,9 @@ jobs:
 
   - job: Test
 
+    dependsOn: Build
+    condition: succeed()
+
     pool:
      vmImage: Ubuntu 16.04
     variables:
@@ -29,6 +32,9 @@ jobs:
        testResultsFiles: '**/*.trx'
 
   - job: Publish
+
+    dependsOn: Test
+    condition: succeed()
 
     pool:
      vmImage: Ubuntu 16.04
